@@ -8,6 +8,7 @@ Spider::Spider(Level* a2)
 	: Monster(a2) {
 	this->field_C88 = 0;
 	this->entityRenderId = SPIDER;
+	this->skin = "mob/spider.png";
 	this->setSize(1.4, 0.9);
 	this->synchedEntityData.define<int8_t>(16, 0); //signed char
 }

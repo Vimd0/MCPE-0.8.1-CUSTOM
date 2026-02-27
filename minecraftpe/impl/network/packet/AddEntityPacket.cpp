@@ -54,6 +54,7 @@ void AddEntityPacket::read(RakNet::BitStream* stream){
 	stream->Read<int32_t>(this->eid);
 	uint8_t tt = (uint8_t) this->type;
 	stream->Read<uint8_t>(tt);
+	this->type = tt;
 	stream->Read<float>(this->x);
 	stream->Read<float>(this->y);
 	stream->Read<float>(this->z);

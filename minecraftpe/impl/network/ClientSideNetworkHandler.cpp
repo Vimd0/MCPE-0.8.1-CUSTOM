@@ -311,6 +311,7 @@ LABEL_10:
 					e->lerpMotion(pk->motionX, pk->motionY, pk->motionZ);
 				}
 				this->level->putEntity(pk->eid, e);
+				return;
 			}
 			//XXX ???
 			Entity* ee = this->level->getEntity(pk->did);
