@@ -13,7 +13,7 @@ should probably simplify it later
 *Or do `git submodule init` and `git submodule update` after!*
 
 ### Extracting sounds
-* put armv8 version of libminecraftpe.so into the same folder as `get_sound_data.py`(currently located in `./minecraftpe/`)
+* put armeabi-v7a version of libminecraftpe.so into the same folder as `get_sound_data.py`(currently located in `./minecraftpe/`)
 * run `python get_sound_data.py` -> should generate `pcm_data.c`
 * move `pcm_data.c` to `./minecraftpe/impl/`
 ### Building executable
