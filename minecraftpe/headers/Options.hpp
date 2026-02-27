@@ -137,5 +137,5 @@ struct Options{
 	void addOptionToSaveOutput(std::vector<std::string>&, std::string, std::string);
 	void addOptionToSaveOutput(std::vector<std::string>&, std::string, int32_t);
 	void addOptionToSaveOutput(std::vector<std::string>&, std::string, float);
-	void addOptionToSaveOutput(std::vector<std::string>&, std::string, bool_t);
+	void addOptionToSaveOutput(std::vector<std::string>&, std::string, bool);
 };

@@ -1,11 +1,12 @@
 #include <Options.hpp>
+#include <I18n.hpp>
 #include <Minecraft.hpp>
 #include <OptionStrings.hpp>
 #include <entity/player/User.hpp>
+#include <math.h>
 #include <network/mco/MojangConnector.hpp>
 #include <sstream>
 #include <util/Util.hpp>
-#include <I18n.hpp>
 
 Options::Option Options::Option::MUSIC{1, "options.music", 0};
 Options::Option Options::Option::SOUND{1, "options.sound", 1};
@@ -32,8 +33,91 @@ std::vector<int32_t> Options::DIFFICULTY_LEVELS = {0, 2};
 std::vector<int32_t> Options::RENDERDISTANCE_LEVELS = {3, 2, 1, 0};
 
 void Options::update() {
-	//TODO
-	printf("Options::update not implemented\n");
+	std::vector<std::string> v13 = this->settingFolderPath.getOptionStrings();
+	for(int i = 0;; i += 2) {
+		if(i >= v13.size()) break;
+		if(v13[i] == OptionStrings::Multiplayer_Username) {
+			if(v13[i + 1].size()) {
+				this->username = v13[i + 1];
+			} else {
+				this->username = "Steve";
+			}
+		} else {
+			if(v13[i] == OptionStrings::Multiplayer_ServerVisible) {
+				this->readBool(v13[i + 1], this->serverVisible);
+			} else if(v13[i] == OptionStrings::Controls_Sensitivity) {
+				float v12;
+				if(this->readFloat(v13[i + 1], v12)) {
+					this->sensitity = (float)(powf(v12 * 1.1, 1.3) * 0.42) + 0.3;
+				}
+			} else {
+				if(v13[i] == OptionStrings::Controls_InvertMouse) {
+					this->readBool(v13[i + 1], this->invertMouse);
+				} else if(v13[i] == OptionStrings::Controls_IsLefthanded) {
+					this->readBool(v13[i + 1], this->leftHanded);
+				} else if(v13[i] == OptionStrings::Controls_UseTouchJoypad) {
+					this->readBool(v13[i + 1], this->useJoypad);
+					if(!this->minecraft->useTouchscreen()) {
+						this->useJoypad = 0;
+					}
+				} else {
+					if(v13[i] == OptionStrings::Controls_FeedbackVibration) {
+						this->readBool(v13[i + 1], this->destroyVibration);
+					} else if(v13[i] == OptionStrings::Graphics_RenderDistance) {
+						this->readInt(v13[i + 1], this->renderDistance);
+					} else if(v13[i] == OptionStrings::Graphics_PixelsPerMilimeter) {
+						this->readFloat(v13[i + 1], this->pixelDensity);
+						if(this->pixelDensity > 12) {
+							this->pixelDensity = 12;
+						} else if(this->pixelDensity <= 3) {
+							this->pixelDensity = 3;
+						}
+					} else {
+						if(v13[i] == OptionStrings::Graphics_FancyGraphics) {
+							this->readBool(v13[i + 1], this->graphics);
+						} else if(v13[i] == OptionStrings::Graphics_FancySkies) {
+							this->readBool(v13[i + 1], this->fancySkies);
+						} else if(v13[i] == OptionStrings::Graphics_AnimateTextures) {
+							this->readBool(v13[i + 1], this->animateTextures);
+						} else if(v13[i] == OptionStrings::Game_ThirdPerson) {
+							this->readBool(v13[i + 1], this->thirdPerson);
+						} else if(v13[i] == OptionStrings::Controls_UseTouchScreen) {
+							if(this->minecraft->supportNonTouchscreen()) {
+								this->readBool(v13[i + 1], this->useTouchscreen);
+							}
+							this->useTouchscreen = 0;
+						} else {
+							if(v13[i] == OptionStrings::Graphics_HideGUI) {
+								this->readBool(v13[i + 1], this->hideGUI);
+							} else if(v13[i] == OptionStrings::AUDIO_Sound) {
+								this->readFloat(v13[i + 1], this->soundVolume);
+							} else if(!(v13[i] == OptionStrings::Game_DifficultyLevel)) {
+								if(v13[i] == OptionStrings::Last_Game_Version_Major) {
+									this->readInt(v13[i + 1], this->major);
+								} else if(v13[i] == OptionStrings::Last_Game_Version_Minor) {
+									this->readInt(v13[i + 1], this->minor);
+								} else if(v13[i] == OptionStrings::Last_Game_Version_Patch) {
+									this->readInt(v13[i + 1], this->patch);
+								} else {
+									if(!(v13[i] == OptionStrings::Last_Game_Version_Beta)) {
+										continue;
+									}
+									this->readInt(v13[i + 1], this->beta);
+								}
+							} else {
+								this->readInt(v13[i + 1], this->difficulty);
+								if(this->difficulty) {
+									if(this->difficulty != 2) {
+										this->difficulty = 2;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 void Options::validateVersion(void) {
@@ -436,7 +520,7 @@ void Options::addOptionToSaveOutput(std::vector<std::string>& a2, std::string a3
 	v11 << a4;
 	a2.emplace_back(v11.str());
 }
-void Options::addOptionToSaveOutput(std::vector<std::string>& a2, std::string a3, bool_t a4) {
+void Options::addOptionToSaveOutput(std::vector<std::string>& a2, std::string a3, bool a4) {
 	std::stringstream v11;
 	v11 << a3;
 	v11 << ":";
@@ -446,6 +530,6 @@ void Options::addOptionToSaveOutput(std::vector<std::string>& a2, std::string a3
 
 void Options::init(Minecraft* mc, std::string a3) {
 	this->minecraft = mc;
-	//TODO this->settingFolderPath.setDefaultFolderPath(a3);
+	this->settingFolderPath.setSettingsFolderPath(a3);
 	this->initDefaultValues();
 }
