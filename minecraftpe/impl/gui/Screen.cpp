@@ -5,7 +5,7 @@
 #include <rendering/Textures.hpp>
 #include <rendering/Tesselator.hpp>
 #include <rendering/states/DisableState.hpp>
-#include <GL/glu.h>
+#include <unigl.h>
 #include <math/Mth.hpp>
 #include <util/Color4.hpp>
 #include <input/Mouse.hpp>

@@ -3,7 +3,7 @@
 #include <tile/Tile.hpp>
 #include <tile/material/Material.hpp>
 #include <rendering/model/ModelPart.hpp>
-#include <GL/gl.h>
+#include <unigl.h>
 #include <rendering/Tesselator.hpp>
 #include <rendering/EntityRenderDispatcher.hpp>
 #include <Minecraft.hpp>

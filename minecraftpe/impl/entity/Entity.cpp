@@ -8,7 +8,7 @@
 #include <utils.h>
 #include <nbt/CompoundTag.hpp>
 #include <entity/ItemEntity.hpp>
-#include <GL/gl.h>
+#include <unigl.h>
 #include <string.h>
 #include <util/EntityPos.hpp>
 #include <nbt/ListTagFloatAdder.hpp>

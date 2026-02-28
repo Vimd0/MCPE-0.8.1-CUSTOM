@@ -2,7 +2,7 @@
 #include <_types.h>
 #include <unordered_map>
 #include <deque>
-#include <GL/gl.h>
+#include <unigl.h>
 
 extern struct GLBufferPool glBufferPool;
 

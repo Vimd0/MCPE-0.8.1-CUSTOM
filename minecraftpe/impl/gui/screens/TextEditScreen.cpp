@@ -46,8 +46,12 @@ void TextEditScreen::render(int32_t a2, int32_t a3, float a4) {
 		glMatrixMode(0x1701u);
 		glPushMatrix();
 		glLoadIdentity();
-		glOrtho(0.0, (float)this->minecraft->field_1C, (float)this->minecraft->field_20, 0.0, -1.0,
-				1.0); //actually glOrthof
+#ifdef USEGLES
+	glOrthof
+#else
+	glOrtho
+#endif
+		(0.0, (float)this->minecraft->field_1C, (float)this->minecraft->field_20, 0.0, -1.0, 1.0);
 		glMatrixMode(0x1700u);
 		this->minecraft->texturesPtr->loadAndBindTexture("item/sign.png");
 		glColor4f(1.0, 1.0, 1.0, 1.0);

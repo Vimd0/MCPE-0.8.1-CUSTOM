@@ -1,5 +1,5 @@
 #include <rendering/LevelRenderer.hpp>
-#include <GL/glu.h>
+#include <unigl.h>
 #include <Minecraft.hpp>
 #include <algorithm>
 #include <entity/LocalPlayer.hpp>

@@ -1,7 +1,6 @@
 #include <NinecraftApp.hpp>
 #include <rendering/GLBufferPool.hpp>
-#include <GLES/gl.h>
-#include <GLES/egl.h>
+#include <unigl.h>
 #include <rendering/Tesselator.hpp>
 #include <math/Mth.hpp>
 #include <tile/material/Material.hpp>
@@ -68,7 +67,11 @@ void NinecraftApp::initGLStates(){
 	glDisable(0x8037u);
 	glDisable(0xB50u);
 	glDepthFunc(GL_LEQUAL);
+#ifdef USEGLES
 	glDepthRangef(0, 1.0);
+#else
+	glDepthRange(0, 1.0);
+#endif
 	glAlphaFunc(0x204u, 0.5);
 	glCullFace(0x405u);
 	glShadeModel(0x1D00u);

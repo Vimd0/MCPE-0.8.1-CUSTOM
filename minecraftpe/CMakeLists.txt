@@ -106,6 +106,7 @@ add_executable(minecraftpe08decomp ${IMPLCPP} ${HEADC} ${HEADCPP}
 	headers/rendering/Tesselator.hpp
 	headers/rendering/MeshBuffer.hpp
 	impl/cpputils.cpp
+	impl/unigl.c
 )
 
 target_include_directories(minecraftpe08decomp PUBLIC "headers/")

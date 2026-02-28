@@ -7,9 +7,9 @@
 #include <AppPlatform.hpp>
 #include <App.hpp>
 #include <AppPlatform_sdl.hpp>
-#include <GL/gl.h>
 #include <utf8proc.h>
 #include <util/Util.hpp>
+#include <unigl.h>
 
 AppPlatform_sdl appPlatform;
 

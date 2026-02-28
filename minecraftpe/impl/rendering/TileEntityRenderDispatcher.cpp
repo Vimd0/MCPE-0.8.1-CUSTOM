@@ -3,7 +3,7 @@
 #include <rendering/tileentity/TileEntityRenderer.hpp>
 #include <tile/entity/TileEntity.hpp>
 #include <level/Level.hpp>
-#include <GL/gl.h>
+#include <unigl.h>
 #include <Minecraft.hpp>
 #include <rendering/tileentity/ChestRenderer.hpp>
 #include <rendering/tileentity/SignRenderer.hpp>

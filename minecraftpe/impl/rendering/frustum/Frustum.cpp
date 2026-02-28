@@ -1,5 +1,5 @@
 #include <rendering/frustum/Frustum.hpp>
-#include <GL/gl.h>
+#include <unigl.h>
 Frustum Frustum::frustum;
 
 void Frustum::calculateFrustum(void) {

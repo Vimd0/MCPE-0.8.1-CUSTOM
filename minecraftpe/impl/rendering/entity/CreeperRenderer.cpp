@@ -1,7 +1,7 @@
 #include <rendering/entity/CreeperRenderer.hpp>
 #include <math/Mth.hpp>
 #include <entity/Creeper.hpp>
-#include <GL/gl.h>
+#include <unigl.h>
 
 CreeperRenderer::CreeperRenderer(Model* a2, float a3) : MobRenderer(a2, a3){
 

@@ -1,5 +1,5 @@
 #include <rendering/GameRenderer.hpp>
-#include <GL/glu.h>
+#include <unigl.h>
 #include <Minecraft.hpp>
 #include <entity/LocalPlayer.hpp>
 #include <entity/player/gamemode/GameMode.hpp>

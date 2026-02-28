@@ -1,6 +1,6 @@
 #pragma once
 #include <_types.h>
-#include <GL/gl.h>
+#include <unigl.h>
 
 struct EnableClientState{
 	GLenum enabled;

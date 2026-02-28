@@ -12,7 +12,11 @@
 #include <entity/LocalPlayer.hpp>
 #include <inventory/Inventory.hpp>
 #include <input/KeyboardInput.hpp>
+#ifdef USEGLES
+#include <GLES/glext.h>
+#else
 
+#endif
 std::string AppPlatform_sdl::getImagePath(const std::string& name, bool_t t){
 	return "assets/images/"+name;
 }
@@ -46,6 +50,7 @@ SDL_Surface* AppPlatform_sdl::setSDLVideoMode() {
 		32, SDL_OPENGL | SDL_RESIZABLE
 	);
 }
+
 bool_t AppPlatform_sdl::sdlCtxInit(){
 	if(this->hasContext) return 1;
 
@@ -62,16 +67,24 @@ bool_t AppPlatform_sdl::sdlCtxInit(){
 	if(!this->sdl_surface){
 		return 0;
 	}
+#ifndef USEGLES
+	initGlFuncs();
+#endif
 
 #ifdef PCTWEAKS
 	int maxTextureLevel, anisotropicFilter;
 
 	const char_t* str = (const char_t*)glGetString(GL_EXTENSIONS);
 	std::string exts = str ? str : "";
-	maxTextureLevel = GL_TEXTURE_MAX_LEVEL; //opengl (non es) doesnt seem to require ext for it
+	 //opengl (non es) doesnt seem to require ext for it
+#ifdef USEGLES
+	maxTextureLevel = GL_TEXTURE_MAX_LEVEL_APPLE;
+#else
+	maxTextureLevel = GL_TEXTURE_MAX_LEVEL;
+#endif
 	AppPlatform::TEXTURE_MAX_LEVEL = maxTextureLevel;
 	if(exts.find("GL_EXT_texture_filter_anisotropic", 0) == -1) anisotropicFilter = 0;
-	else anisotropicFilter = GL_TEXTURE_MAX_ANISOTROPY;
+	else anisotropicFilter = GL_EXT_texture_filter_anisotropic;
 	AppPlatform::ANISOTROPIC_MAX_LEVEL = anisotropicFilter;
 	if(anisotropicFilter) glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &AppPlatform::ANISOTROPIC_MAX_LEVEL);
 #endif

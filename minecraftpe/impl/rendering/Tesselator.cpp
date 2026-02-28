@@ -1,6 +1,5 @@
 #include <rendering/Tesselator.hpp>
-#include <GL/gl.h>
-#include <GLES/gl.h>
+#include <unigl.h>
 #include <_types.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -201,9 +200,9 @@ void Tesselator::draw(bool_t a2) {
 	this->isDrawing = 0;
 	if(this->getVertexCount() > 0) {
 		EnableClientState v9, v10, v11;
-		if(this->drawMode == GL_QUADS) {
-			/*this->_buildQuadIndexBuffer(); //TODO convert to triangles
-			this->drawMode = GL_TRIANGLES;*/
+		if(this->drawMode == 7) {
+			this->_buildQuadIndexBuffer();
+			this->drawMode = GL_TRIANGLES;
 		}
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

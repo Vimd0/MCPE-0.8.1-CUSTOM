@@ -1,5 +1,4 @@
 #include <AppPlatform.hpp>
-#include <GL/gl.h>
 #include <ImageData.hpp>
 #include <_AssetFile.hpp>
 #include <utils.h>

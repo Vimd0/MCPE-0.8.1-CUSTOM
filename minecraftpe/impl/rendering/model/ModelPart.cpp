@@ -1,5 +1,5 @@
 #include <rendering/model/ModelPart.hpp>
-#include <GL/gl.h>
+#include <unigl.h>
 #include <rendering/Tesselator.hpp>
 #include <rendering/model/Cube.hpp>
 #include <rendering/model/Model.hpp>

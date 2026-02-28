@@ -1,6 +1,6 @@
 #include <gui/GuiComponent.hpp>
 #include <rendering/Tesselator.hpp>
-#include <GL/gl.h>
+#include <unigl.h>
 #include <rendering/states/DisableState.hpp>
 #include <rendering/Font.hpp>
 

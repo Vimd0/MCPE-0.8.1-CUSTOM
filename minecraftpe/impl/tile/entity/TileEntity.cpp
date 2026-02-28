@@ -4,7 +4,7 @@
 #include <entity/Player.hpp>
 #include <tile/Tile.hpp>
 #include <nbt/CompoundTag.hpp>
-#include <GL/gl.h>
+#include <unigl.h>
 #include <string.h>
 #include <math.h>
 #include <math/Mth.hpp>

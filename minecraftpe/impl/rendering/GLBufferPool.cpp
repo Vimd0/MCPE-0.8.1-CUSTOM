@@ -1,6 +1,4 @@
 #include <rendering/GLBufferPool.hpp>
-#include <GLES/gl.h>
-
 GLBufferPool glBufferPool;
 
 GLBufferPool::~GLBufferPool(){
