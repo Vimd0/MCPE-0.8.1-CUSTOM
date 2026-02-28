@@ -48,6 +48,9 @@ std::string ExternalFileLevelStorageSource::getName() {
 	return "External File Level Storage";
 }
 void ExternalFileLevelStorageSource::getLevelList(std::vector<LevelSummary>& a2) {
+#ifdef __WIN32__
+	printf("ExternalFileLevelStorageSource::getLevelList winapi edition - not implemented\n"); //TODO implement ExternalFileLevelStorageSource::getLevelList
+#else
 	DIR* v4 = opendir(this->field_4.c_str());
 	if(!v4) {
 		_errno();
@@ -63,6 +66,7 @@ void ExternalFileLevelStorageSource::getLevelList(std::vector<LevelSummary>& a2)
 		}
 	}
 	closedir(v4);
+#endif
 }
 int32_t ExternalFileLevelStorageSource::getDataTagFor(const std::string&) {
 	return 0;

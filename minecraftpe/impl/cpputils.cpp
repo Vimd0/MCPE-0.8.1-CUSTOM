@@ -23,7 +23,11 @@ bool_t DeleteDirectory(const std::string& a1, bool_t a2) {
 	return recursiveDelete(a1.c_str()) == 0;
 }
 
-int recursiveDelete(const char_t* a1) { //TODO implement
+int recursiveDelete(const char_t* a1) {
+#ifdef __WIN32__
+	printf("recursiveDelete WINAPI ediiton - not implemented!\n"); //TODO implement recursiveDelete winapi edition
+	return 0;
+#else
 	DIR* v2 = opendir(a1);
 	if(v2) {
 		while(1) {
@@ -44,22 +48,27 @@ int recursiveDelete(const char_t* a1) { //TODO implement
 		closedir(v2);
 	}
 	return remove(a1);
+#endif
 }
 bool_t exists(const char_t* a1){
 	return access(a1, 0) == 0;
 }
-int _errno() {
+int FUNC_ERRNO() {
 	return errno; //TODO check
 }
-int mkdir(const char* a1) {
+int FUNC_MKDIR(const char* a1) {
+#ifdef __WIN32__
+	return mkdir(a1);
+#else
 	return mkdir(a1, 0755u);
+#endif
 }
 bool createFolderIfNotExists(const char* a1){
-	if ( exists(a1) || !mkdir(a1) )
+	if ( exists(a1) || !FUNC_MKDIR(a1) )
 	{
 		return 1;
 	}
-	_errno();
+	FUNC_ERRNO();
 	return 0;
 }
 bool createTree(const char* a1, const char** a2, int a3) {

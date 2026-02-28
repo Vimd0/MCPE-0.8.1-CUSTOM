@@ -1,4 +1,5 @@
 #pragma once
+#include <_types.h>
 #include <string>
 
 namespace compression {

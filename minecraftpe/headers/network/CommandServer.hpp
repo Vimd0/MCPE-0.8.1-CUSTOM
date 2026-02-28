@@ -3,8 +3,11 @@
 #include <vector>
 #include <string>
 #include <util/OffsetPosTranslator.hpp>
+#ifdef __WIN32__
+#include <winsock2.h>
+#else
 #include <sys/socket.h>
-
+#endif
 struct ConnectedClient;
 struct Minecraft;
 struct CameraEntity;

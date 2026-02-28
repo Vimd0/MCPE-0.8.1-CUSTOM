@@ -6,6 +6,7 @@
 #include <GLES/glext.h>
 #else
 #include <GL/gl.h>
+#include <GL/glext.h>
 
 #ifdef __cplusplus
 extern "C" {
