@@ -3,6 +3,7 @@
 #include <sound/SoundDesc.hpp>
 #include <math.h>
 #include <sounddata.hpp>
+#include <winsock2.h>
 #include <windows.h>
 #include <SDL/SDL_syswm.h>
 #include <unknwn.h>
