@@ -25,8 +25,22 @@ bool_t DeleteDirectory(const std::string& a1, bool_t a2) {
 
 int recursiveDelete(const char_t* a1) {
 #ifdef __WIN32__
-	printf("recursiveDelete WINAPI ediiton - not implemented!\n"); //TODO implement recursiveDelete winapi edition
-	return 0;
+	WIN32_FIND_DATA data;
+	HANDLE hFind = FindFirstFile((std::string(a1)+("\\*.*")).c_str(), &data);
+	if(hFind == INVALID_HANDLE_VALUE){
+		return remove(a1);
+	}
+	do{
+		if(!strcmp(data.cFileName, ".") || !strcmp(data.cFileName, "..")) continue;
+		int result;
+		if(data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY){
+			result = recursiveDelete((std::string(a1)+"\\"+data.cFileName).c_str());
+		}else{
+			result = remove((std::string(a1)+"\\"+data.cFileName).c_str());
+		}
+		if(result) return result;
+	}while(FindNextFile(hFind, &data) != 0);
+	return remove(a1);
 #else
 	DIR* v2 = opendir(a1);
 	if(v2) {
@@ -47,7 +61,7 @@ int recursiveDelete(const char_t* a1) {
 
 		closedir(v2);
 	}
-	return remove(a1);
+w	return remove(a1);
 #endif
 }
 bool_t exists(const char_t* a1){

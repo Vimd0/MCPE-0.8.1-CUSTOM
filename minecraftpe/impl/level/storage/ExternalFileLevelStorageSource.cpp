@@ -49,7 +49,17 @@ std::string ExternalFileLevelStorageSource::getName() {
 }
 void ExternalFileLevelStorageSource::getLevelList(std::vector<LevelSummary>& a2) {
 #ifdef __WIN32__
-	printf("ExternalFileLevelStorageSource::getLevelList winapi edition - not implemented\n"); //TODO implement ExternalFileLevelStorageSource::getLevelList
+	WIN32_FIND_DATA data;
+	HANDLE hFind = FindFirstFile((this->field_4+"\\*.*").c_str(), &data);
+	if(hFind == INVALID_HANDLE_VALUE){
+		return;
+	}
+	do{
+		if(data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY){
+			this->addLevelSummaryIfExists(a2, data.cFileName);
+		}
+	}while(FindNextFile(hFind, &data));
+	FindClose(hFind);
 #else
 	DIR* v4 = opendir(this->field_4.c_str());
 	if(!v4) {
