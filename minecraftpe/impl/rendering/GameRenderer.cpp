@@ -575,7 +575,7 @@ void GameRenderer::renderItemInHand(float a2, int32_t a3) {
 	float v7;			  // s14
 	float v8;			  // s13
 	Minecraft* minecraft; // r3
-	float Fov;			  // s17
+	float fov;			  // s17
 	Minecraft* v11;		  // r3
 	Minecraft* v16;		  // r3
 	Minecraft* v17;		  // r3
@@ -605,11 +605,11 @@ void GameRenderer::renderItemInHand(float a2, int32_t a3) {
 			if(!this->minecraft->viewEntityMaybe->isSleeping()) {
 				v17 = this->minecraft;
 				if(!v17->options.hideGUI) {
-					Fov = this->getFov(a2, 0);
-					if(Fov != this->fov) {
+					fov = this->getFov(a2, 0);
+					if(fov != this->fov) {
 						glMatrixMode(0x1701u);
 						glLoadIdentity();
-						gluPerspective(Fov, (float)this->minecraft->field_1C / (float)this->minecraft->field_20, 0.05, this->field_8);
+						gluPerspective(fov, (float)this->minecraft->field_1C / (float)this->minecraft->field_20, 0.05, this->field_8);
 						glMatrixMode(0x1700u);
 					}
 					glClear(0x100u);
@@ -905,7 +905,11 @@ void GameRenderer::setupFog(int32_t a2) {
 	glFogfv(GL_FOG_COLOR, (const GLfloat*)v5);
 	glColor4f(1.0, 1.0, 1.0, 1.0);
 	if(viewEntityMaybe->isUnderLiquid(Material::water)) {
-		glFogi(GL_FOG_MODE, 2048); //TODO uses glFogx
+#ifdef USEGLES
+		glFogx(GL_FOG_MODE, 2048);
+#else
+		glFogi(GL_FOG_MODE, 2048);
+#endif
 		v6 = 0.1;
 LABEL_8:
 		glFogf(GL_FOG_DENSITY, v6);
@@ -913,11 +917,19 @@ LABEL_8:
 		return;
 	}
 	if(viewEntityMaybe->isUnderLiquid(Material::lava)) {
-		glFogi(GL_FOG_MODE, 2048); //TODO uses glFogx
+#ifdef USEGLES
+		glFogx(GL_FOG_MODE, 2048);
+#else
+		glFogi(GL_FOG_MODE, 2048);
+#endif
 		v6 = 2.0;
 		goto LABEL_8;
 	}
-	glFogi(GL_FOG_MODE, GL_LINEAR); //TODO uses glFogx
+#ifdef USEGLES
+	glFogx(GL_FOG_MODE, GL_LINEAR);
+#else
+	glFogi(GL_FOG_MODE, GL_LINEAR);
+#endif
 	glFogf(GL_FOG_START, this->field_8 * 0.7);
 	glFogf(GL_FOG_END, this->field_8);
 	this->field_150 = 0;
@@ -939,7 +951,14 @@ void GameRenderer::setupGuiScreen(bool_t a2) {
 	v4 = (int32_t)(float)((float)minecraft->field_1C * Gui::InvGuiScale);
 	glMatrixMode(0x1701u);
 	glLoadIdentity();
-	glOrtho(0.0, (float)v4, (float)(int32_t)v3, 0.0, 2000.0, 3000.0);
+
+#ifdef USEGLES
+	glOrthof
+#else
+	glOrtho
+#endif
+	(0.0, (float)v4, (float)(int32_t)v3, 0.0, 2000.0, 3000.0);
+
 	glMatrixMode(0x1700u);
 	glLoadIdentity();
 	glTranslatef(0.0, 0.0, -2000.0);

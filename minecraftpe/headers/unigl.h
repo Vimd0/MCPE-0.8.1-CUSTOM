@@ -1,12 +1,19 @@
 #ifndef UNIGL_H
 #define UNIGL_H
-#include <GL/glu.h>
 #ifdef USEGLES
 #include <GLES/gl.h>
 #include <GLES/glext.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
+void gluPerspective(GLfloat fovy, GLfloat aspect, GLfloat znear, GLfloat zfar);
+#ifdef __cplusplus
+}
+#endif
 #else
 #include <GL/gl.h>
 #include <GL/glext.h>
+#include <GL/glu.h>
 
 #ifdef __cplusplus
 extern "C" {

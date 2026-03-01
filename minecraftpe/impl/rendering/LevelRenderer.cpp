@@ -563,7 +563,11 @@ void LevelRenderer::renderClouds(float a2) {
 	glFogf(0xB63u, 0.0);
 	glFogf(0xB64u, v17);
 	if(v7 > 1.0) {
-		glDepthRange(0.0, 1.0); //XXX uses glDepthRangef
+#ifdef USEGLES
+		glDepthRangef(0.0, 1.0);
+#else
+		glDepthRange(0.0, 1.0);
+#endif
 	}
 	glPushMatrix();
 	glTranslatef(-(float)(v9 * 16.0), v7, -(float)(v13 * 16.0));
@@ -581,7 +585,11 @@ void LevelRenderer::renderClouds(float a2) {
 	glFogf(0xB63u, v16 * 0.7);
 	glFogf(0xB64u, v16);
 	if(v7 > 1.0) {
-		glDepthRange(0.0, 0.7); //XXX uses glDepthRangef
+#ifdef USEGLES
+		glDepthRangef(0.0, 0.7);
+#else
+		glDepthRange(0.0, 0.7);
+#endif
 	}
 	//DisableState::~DisableState((DisableState *)&textes);
 	//EnableClientState::~EnableClientState((EnableClientState *)&res);
