@@ -4,6 +4,9 @@
 
 struct CThread
 {
+#ifdef EVILOREOBROKEPTHREADS
+	pthread_mutex_t lock;
+#endif
 	pthread_t field_8;
 	void* (*function)(void*);
 	pthread_attr_t field_C;

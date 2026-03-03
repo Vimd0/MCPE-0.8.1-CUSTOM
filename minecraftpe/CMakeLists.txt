@@ -22,6 +22,8 @@ find_package(ZLIB REQUIRED)
 
 if(ANDROID)
 	add_compile_options(-fpermissive -Wno-out-of-line-declaration -Wno-write-strings -Werror=infinite-recursion -Werror=return-type -DUSEGLES -DIMTOOLAZYTOFIX16ERRS -DPCTWEAKS)
+	#fix crash in CThread::~CThread when launching on newer(android 9) devices and targeting sdk 36
+	add_compile_options(-DEVILOREOBROKEPTHREADS)
 else()
 	add_compile_options(-fpermissive -Wno-out-of-line-declaration -Wno-write-strings -Werror=infinite-recursion -Werror=return-type -DIMTOOLAZYTOFIX16ERRS -DPCTWEAKS)
 endif()

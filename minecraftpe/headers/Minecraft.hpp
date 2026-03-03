@@ -43,7 +43,7 @@ struct Minecraft : App{
 	struct LocalPlayer* player;
 	struct IInputHolder *inputHolder;
 	struct Mob* viewEntityMaybe;
-	CThread* prepareLevelThread; //TODO type
+	CThread* prepareLevelThread;
 	Screen* currentScreen;
 	std::shared_ptr<Screen> field_C7C;
 	int8_t mouseGrabbed, field_C81, field_C82, field_C83;
@@ -53,9 +53,9 @@ struct Minecraft : App{
 	float field_C90;
 	HitResult selectedObject;
 	int32_t field_CBC;
-	std::string dataPathMaybe; //TODO check is std::string
+	std::string dataPathMaybe;
 	std::string field_CC4;
-	std::shared_ptr<struct ExternalServerFile> externalServerFile; //TODO type
+	std::shared_ptr<struct ExternalServerFile> externalServerFile;
 	Timer timer;
 	bool field_CF4, levelGenerated, field_CF6, field_CF7;
 	struct LevelStorageSource* levelStorageSource;

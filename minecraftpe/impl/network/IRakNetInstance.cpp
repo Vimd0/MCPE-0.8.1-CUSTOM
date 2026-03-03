@@ -1,4 +1,5 @@
 #include <network/IRakNetInstance.hpp>
+#include <network/Packet.hpp>
 
 IRakNetInstance::~IRakNetInstance() {
 }
