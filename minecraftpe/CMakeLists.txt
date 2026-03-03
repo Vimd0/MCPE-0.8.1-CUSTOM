@@ -21,13 +21,13 @@ find_package(ZLIB REQUIRED)
 
 
 if(ANDROID)
-	add_compile_options(-fpermissive -Wno-out-of-line-declaration -Wno-write-strings -Winfinite-recursion -Werror=return-type -DUSEGLES -DIMTOOLAZYTOFIX16ERRS -DPCTWEAKS)
+	add_compile_options(-fpermissive -Wno-out-of-line-declaration -Wno-write-strings -Werror=infinite-recursion -Werror=return-type -DUSEGLES -DIMTOOLAZYTOFIX16ERRS -DPCTWEAKS)
 else()
-	add_compile_options(-fpermissive -Wno-out-of-line-declaration -Wno-write-strings -Winfinite-recursion -Werror=return-type -DIMTOOLAZYTOFIX16ERRS -DPCTWEAKS)
+	add_compile_options(-fpermissive -Wno-out-of-line-declaration -Wno-write-strings -Werror=infinite-recursion -Werror=return-type -DIMTOOLAZYTOFIX16ERRS -DPCTWEAKS)
 endif()
 
 if(DEBUG)
-	add_compile_options(-g)
+	add_compile_options(-g -DDEBUG)
 endif()
 
 file(GLOB_RECURSE IMPLCPP *.cpp)

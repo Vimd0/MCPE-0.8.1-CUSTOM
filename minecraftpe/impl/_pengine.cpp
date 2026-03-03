@@ -134,7 +134,7 @@ int engine_handle_input(struct android_app* app, struct AInputEvent* event) {
 				int8_t v18 = (action & 0x00ff);
 				int8_t pointerId = AMotionEvent_getPointerId(event, v17);
 				int v20 = (int)AMotionEvent_getX(event, v17);
-				int v21 = (int)AMotionEvent_getX(event, v17);
+				int v21 = (int)AMotionEvent_getY(event, v17);
 				switch(v18) {
 					case 0:
 					case 5:

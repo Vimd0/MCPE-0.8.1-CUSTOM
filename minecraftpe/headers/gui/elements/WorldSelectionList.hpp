@@ -21,7 +21,7 @@ struct WorldSelectionList: RolledSelectionListH
 	void tweenInited();
 
 	virtual ~WorldSelectionList();
-	virtual int32_t capXPosition();
+	virtual bool capXPosition();
 	virtual void tick();
 	virtual int32_t getNumberOfItems();
 	virtual void selectItem(int32_t, bool_t);

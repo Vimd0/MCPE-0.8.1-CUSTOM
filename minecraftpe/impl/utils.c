@@ -11,7 +11,6 @@ double getTimeS(){
 	struct timeval v1;
 	gettimeofday(&v1, 0);
 	return v1.tv_sec - startedAtSec + (double)v1.tv_usec / 1000000.0;
-
 }
 
 time_t getEpochTimeS() {

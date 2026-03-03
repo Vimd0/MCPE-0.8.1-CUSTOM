@@ -56,7 +56,7 @@ int32_t RolledSelectionListH::getItemAtPosition(int32_t a2, int32_t a3) {
 
 	return this->getItemAtXPositionRaw((int32_t)(float)((float)((float)((float)((float)a2 - this->field_8) - (float)this->field_44) + (float)(int32_t)this->field_2C) - 4.0));
 }
-bool_t RolledSelectionListH::capXPositon(void) {
+bool RolledSelectionListH::capXPosition(void) {
 	float v2;
 	int32_t v3;
 	float v4;
@@ -130,7 +130,7 @@ SELECT_CANCEL:
 		this->field_2C = this->getPos(a4);
 	}
 	this->field_28 = a2;
-	this->capXPositon();
+	this->capXPosition();
 	float v19, v20;
 	if(this->field_42) v19 = this->field_1C;
 	else v19 = 0;

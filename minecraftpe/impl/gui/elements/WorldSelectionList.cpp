@@ -91,10 +91,10 @@ void WorldSelectionList::tweenInited() {
 
 WorldSelectionList::~WorldSelectionList() {
 }
-int32_t WorldSelectionList::capXPosition() {
+bool WorldSelectionList::capXPosition() {
 	int32_t result; // r0
 
-	result = this->capXPosition();
+	result = RolledSelectionListH::capXPosition();
 	if(result) {
 		this->field_C0 = 0;
 	}

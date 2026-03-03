@@ -387,7 +387,7 @@ void StairTile::addAABBs(Level* level, int32_t x, int32_t y, int32_t z, const AA
 	this->setShape(0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
 }
 AABB StairTile::getTileAABB(Level* level, int32_t x, int32_t y, int32_t z) {
-	return this->getTileAABB(level, x, y, z);
+	return this->block->getTileAABB(level, x, y, z);
 }
 bool_t StairTile::isSolidRender() {
 	return 0;

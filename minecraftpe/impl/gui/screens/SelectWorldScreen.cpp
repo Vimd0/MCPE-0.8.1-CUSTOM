@@ -206,7 +206,7 @@ void SelectWorldScreen::keyPressed(int32_t a2) {
 			this->selectionList->stepRight();
 		}
 	}
-	this->keyPressed(a2);
+	Screen::keyPressed(a2);
 }
 bool_t SelectWorldScreen::isIndexValid(int32_t a2) {
 	if(this->selectionList) {

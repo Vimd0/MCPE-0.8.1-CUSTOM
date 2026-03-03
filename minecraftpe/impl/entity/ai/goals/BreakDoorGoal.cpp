@@ -10,7 +10,7 @@ BreakDoorGoal::BreakDoorGoal(Mob* a2) : DoorInteractGoal(a2){
 BreakDoorGoal::~BreakDoorGoal() {
 }
 bool_t BreakDoorGoal::canUse() {
-	if(this->canUse()) {
+	if(DoorInteractGoal::canUse()) {
 		return !DoorTile::isOpen(this->holder->level, this->doorX, this->doorY, this->doorZ);
 	}
 	return 0;
@@ -29,7 +29,7 @@ void BreakDoorGoal::tick() {
 	int32_t v2;	  // r3
 	Level* level; // r0
 
-	this->tick();
+	DoorInteractGoal::tick();
 	this->holder->level->random.genrand_int32();
 	v2 = this->ticksLeft - 1;
 	this->ticksLeft = v2;

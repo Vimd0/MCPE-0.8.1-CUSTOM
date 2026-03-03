@@ -1,34 +1,35 @@
-#include <NinecraftApp.hpp>
-#include <rendering/GLBufferPool.hpp>
-#include <unigl.h>
-#include <rendering/Tesselator.hpp>
-#include <math/Mth.hpp>
-#include <tile/material/Material.hpp>
-#include <entity/MobCategory.hpp>
-#include <item/Item.hpp>
-#include <level/biome/Biome.hpp>
-#include <rendering/Textures.hpp>
-#include <rendering/Font.hpp>
-#include <rendering/PerfRenderer.hpp>
-#include <tile/Tile.hpp>
-#include <rendering/GameRenderer.hpp>
-#include <entity/LocalPlayer.hpp>
-#include <tile/entity/TileEntity.hpp>
 #include <I18n.hpp>
+#include <NinecraftApp.hpp>
+#include <cpputils.hpp>
+#include <entity/LocalPlayer.hpp>
+#include <entity/MobCategory.hpp>
+#include <gui/Screen.hpp>
+#include <input/Mouse.hpp>
+#include <item/Item.hpp>
+#include <level/Level.hpp>
+#include <level/biome/Biome.hpp>
+#include <level/storage/ExternalFileLevelStorageSource.hpp>
+#include <math/Mth.hpp>
+#include <network/RakNetInstance.hpp>
+#include <network/ServerSideNetworkHandler.hpp>
+#include <rendering/Font.hpp>
+#include <rendering/GLBufferPool.hpp>
+#include <rendering/GameRenderer.hpp>
 #include <rendering/LevelRenderer.hpp>
 #include <rendering/ParticleEngine.hpp>
-#include <network/RakNetInstance.hpp>
-#include <input/Mouse.hpp>
-#include <level/Level.hpp>
-#include <network/ServerSideNetworkHandler.hpp>
-#include <level/storage/ExternalFileLevelStorageSource.hpp>
-#include <rendering/textures/LavaTexture.hpp>
-#include <rendering/textures/WaterTexture.hpp>
+#include <rendering/PerfRenderer.hpp>
+#include <rendering/Tesselator.hpp>
+#include <rendering/Textures.hpp>
 #include <rendering/textures/FireTexture.hpp>
-#include <rendering/textures/WaterSideTexture.hpp>
 #include <rendering/textures/LavaSideTexture.hpp>
-#include <gui/Screen.hpp>
-#include <cpputils.hpp>
+#include <rendering/textures/LavaTexture.hpp>
+#include <rendering/textures/WaterSideTexture.hpp>
+#include <rendering/textures/WaterTexture.hpp>
+#include <tile/Tile.hpp>
+#include <tile/entity/TileEntity.hpp>
+#include <tile/material/Material.hpp>
+#include <unigl.h>
+#include <input/Multitouch.hpp>
 
 std::shared_ptr<TextureAtlas> NinecraftApp::_itemsTextureAtlas;
 std::shared_ptr<TextureAtlas> NinecraftApp::_terrainTextureAtlas;
@@ -135,7 +136,7 @@ void NinecraftApp::update(void){
 	//TODO mutex lock
 	//TODO multitouch
 	++this->field_D4C;
-	//TODO MultiTouch::commit(vecEndPtr);
+	Multitouch::commit();
 	Minecraft::update();
 	if(this->context.field_10){
 #if defined(ANDROID) and defined(USEGLES)

@@ -27,7 +27,7 @@ struct RolledSelectionListH: GuiComponent
 
 	virtual ~RolledSelectionListH();
 	virtual int32_t getItemAtPosition(int32_t, int32_t);
-	virtual bool_t capXPositon(void);
+	virtual bool capXPosition(void);
 	virtual void tick();
 	virtual void render(int32_t, int32_t, float);
 	virtual void renderHoleBackground(float, float, int32_t, int32_t);

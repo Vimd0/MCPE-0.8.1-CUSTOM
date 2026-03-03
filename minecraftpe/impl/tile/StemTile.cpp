@@ -193,7 +193,7 @@ void StemTile::spawnResources(Level* level, int32_t x, int32_t y, int32_t z, int
 	int32_t v12;	  // r4
 	ItemInstance v14; // [sp+14h] [bp-3Ch] BYREF
 
-	this->spawnResources(level, x, y, z, a6, a7);
+	Tile::spawnResources(level, x, y, z, a6, a7);
 	if(!level->isClientMaybe) {
 		if(this->grownTile == Tile::melon) {
 			v11 = Item::seeds_melon;

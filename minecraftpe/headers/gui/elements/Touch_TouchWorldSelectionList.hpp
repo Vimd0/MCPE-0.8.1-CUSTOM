@@ -24,7 +24,7 @@ namespace Touch {
 		void tweenInited(void);
 
 		virtual ~TouchWorldSelectionList();
-		virtual bool_t capXPositon();
+		virtual bool capXPosition();
 		virtual void tick();
 		virtual int32_t getNumberOfItems();
 		virtual void selectStart(int32_t, int32_t, int32_t);

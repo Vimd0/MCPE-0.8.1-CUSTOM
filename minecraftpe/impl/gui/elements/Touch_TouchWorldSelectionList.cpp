@@ -70,8 +70,8 @@ void Touch::TouchWorldSelectionList::tweenInited(void) {
 
 Touch::TouchWorldSelectionList::~TouchWorldSelectionList() {
 }
-bool_t Touch::TouchWorldSelectionList::capXPositon() {
-	bool_t r = RolledSelectionListH::capXPositon();
+bool Touch::TouchWorldSelectionList::capXPosition() {
+	bool r = RolledSelectionListH::capXPosition();
 	if(r) this->field_C8 = 0;
 	return r;
 }
