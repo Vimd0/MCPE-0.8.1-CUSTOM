@@ -217,17 +217,10 @@ void Mob::setJumping(bool_t a2) {
 }
 void Mob::setSharedFlag(int32_t a2, bool_t a3) {
 	if(a3) {
-		int32_t oldf = this->synchedEntityData.getByte(0);
-		uint8_t newf = (1 << a2) | oldf;
-		this->synchedEntityData.setFlag<char>(0, newf);
-		if(((newf >> a2) & 1) == ((oldf >> a2) & 1)) return;
+		this->synchedEntityData.setFlag<char>(0, a2);
 	} else {
-		int32_t oldf = this->synchedEntityData.getByte(0);
-		uint8_t newf = oldf & ~(1 << a2);
-		this->synchedEntityData.clearFlag<char>(0, newf);
-		if(((newf >> a2) & 1) == ((oldf >> a2) & 1)) return;
+		this->synchedEntityData.clearFlag<char>(0, a2);
 	}
-	this->synchedEntityData.markDirty(0);
 }
 void Mob::setSpeed(float a2) {
 	this->speed = a2;

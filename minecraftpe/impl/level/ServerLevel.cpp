@@ -16,14 +16,15 @@ bool_t ServerLevel::allPlayersSleeping() {
 	return 1;
 }
 void ServerLevel::awakenAllPlayers() {
-	if(!this->allPlayersSleeping()) { //inlined
-		if(this->_allPlayersSleeping) {
-			this->levelEvent(0, 9800, 0, 0, 0, 0);
-			for(auto&& p: this->playersMaybe) {
-				p->setAllPlayersSleeping();
-			}
+	this->_allPlayersSleeping = 0;
+	for(auto&& p: this->playersMaybe) {
+		if(p->isSleeping()) {
+			p->stopSleepInBed(0, 0, 1);
+			p->health = p->prevHealthMaybe = 20;
 		}
 	}
+	SetHealthPacket v6(20);
+	this->rakNetInstance->send(v6);
 }
 ServerLevel::~ServerLevel() {
 }
@@ -40,12 +41,21 @@ void ServerLevel::tick() {
 	}
 }
 void ServerLevel::updateSleepingPlayerList() {
+	bool allPlayersSleeping = this->_allPlayersSleeping;
+	this->_allPlayersSleeping = !this->playersMaybe.empty();
 	for(auto&& p: this->playersMaybe) {
-		if(p->isSleeping()) {
-			p->stopSleepInBed(0, 0, 1);
-			p->health = p->prevHealthMaybe = 20;
+		if(!p->isSleeping()) {
+			this->_allPlayersSleeping = 0;
+			break;
 		}
 	}
-	SetHealthPacket v6(20);
-	this->rakNetInstance->send(v6);
+
+	if(!allPlayersSleeping) {
+		if(this->_allPlayersSleeping) {
+			this->levelEvent(0, 9800, 0, 0, 0, 0);
+			for(auto&& p: this->playersMaybe) {
+				p->setAllPlayersSleeping();
+			}
+		}
+	}
 }

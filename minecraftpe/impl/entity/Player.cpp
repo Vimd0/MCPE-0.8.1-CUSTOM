@@ -461,7 +461,6 @@ void Player::tick() {
 
 	v13 = 16;
 	v3 = (this->synchedEntityData.getByte(16) >> 1) & 1; //TODO check
-
 	if(v3 != this->isSleeping()) {
 		if(this->isSleeping()) {
 			this->stopSleepInBed(1, 1, 1);
@@ -697,8 +696,9 @@ LABEL_25:
 		this->synchedEntityData.setFlag<char>(16, 1);
 	} else {
 		this->stopSleepInBed(1, 1, 0);
-		this->synchedEntityData.setFlag<char>(16, 1);
+		this->synchedEntityData.clearFlag<char>(16, 1);
 	}
+
 	this->synchedEntityData.set<Pos>(17, this->bedPosition);
 	bool_t v25 = 0;
 	if(a2->contains("SpawnX")) {
@@ -1054,6 +1054,7 @@ int32_t Player::startSleepInBed(int32_t x, int32_t y, int32_t z) {
 	} else {
 		this->setPos((float)x + 0.5, (float)y + 0.0625, (float)z + 0.5);
 	}
+
 	this->sleeping = 1;
 	this->sleepingCounter = 0;
 	this->bedPosition = {x, y, z};
@@ -1069,8 +1070,6 @@ int32_t Player::startSleepInBed(int32_t x, int32_t y, int32_t z) {
 	return 0;
 }
 void Player::stopSleepInBed(bool_t a2, bool_t a3, bool_t a4) {
-	int32_t bedPositionX; // r1
-	int32_t bedPositionY; // r2
 	Level* level;		  // r0
 	Level* v12;			  // r0
 	int32_t v13;		  // r2
@@ -1083,7 +1082,7 @@ void Player::stopSleepInBed(bool_t a2, bool_t a3, bool_t a4) {
 		this->setDefaultHeadHeight();
 		level = this->level;
 		Pos v17 = this->bedPosition;
-		if(level->getTile(bedPositionX, bedPositionY, v17.z) == Tile::bed->blockID) {
+		if(level->getTile(v17.x, v17.y, v17.z) == Tile::bed->blockID) {
 			BedTile::setOccupied(this->level, this->bedPosition.x, this->bedPosition.y, this->bedPosition.z, 0);
 			if(!BedTile::findStandUpPosition(this->level, this->bedPosition.x, this->bedPosition.y, this->bedPosition.z, 0, v17)) {
 				v17 = this->bedPosition;
