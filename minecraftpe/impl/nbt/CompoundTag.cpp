@@ -7,6 +7,7 @@
 #include <nbt/StringTag.hpp>
 #include <nbt/FloatTag.hpp>
 #include <util/output/IDataOutput.hpp>
+#include <sstream>
 
 CompoundTag::CompoundTag(const std::string& name) : Tag(name){
 
@@ -95,7 +96,10 @@ void CompoundTag::print(const std::string&, PrintStream&){
  //XXX does something, but probably useless
 }
 std::string CompoundTag::toString(void){
-	return std::to_string(this->value.size()) + " entries";
+	std::stringstream ss;
+	ss << this->value.size();
+	ss <<  " entries";
+	return ss.str();
 }
 void CompoundTag::write(IDataOutput* out){
 	std::map<std::string, Tag*>::iterator it_this = this->value.begin();

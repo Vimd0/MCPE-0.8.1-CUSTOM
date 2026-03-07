@@ -14,8 +14,7 @@ int32_t ByteTag::getId(void) const{
 	return 1;
 }
 std::string ByteTag::toString(){
-	//XXX might be not like in mcpe
-	return std::to_string(this->value);
+	return std::string((unsigned char) this->value, 1);
 }
 Tag* ByteTag::copy(void){
 	ByteTag* t = new ByteTag(this->getName(), this->value);

@@ -48,12 +48,7 @@ RenderCall* ItemInHandRenderer::rebuildItem(struct Mob* a2, ItemInstance& a3) {
 	//TODO check
 	int fid = this->_getFrameID(a2, &a3);
 	RenderCall* v7 = new RenderCall();
-	auto&& p = this->field_90.find(fid);
-	if(p == this->field_90.end()) {
-		this->field_90.insert({fid, std::unique_ptr<RenderCall>()});
-	}
-	p = this->field_90.find(fid);
-	p->second.reset(v7); //TODO check
+	this->field_90[fid].reset(v7);
 
 	if(a3.tileClass) {
 		int v12 = a3.tileClass->getRenderShape();

@@ -1,6 +1,7 @@
 #include <nbt/FloatTag.hpp>
 #include <util/input/IDataInput.hpp>
 #include <util/output/IDataOutput.hpp>
+#include <sstream>
 
 FloatTag::FloatTag(const std::string& n, float v) : Tag(n){
 	this->value = v;
@@ -15,8 +16,9 @@ int32_t FloatTag::getId(void) const{
 	return 5;
 }
 std::string FloatTag::toString(void){
-	//XXX might be not like in mcpe
-	return std::to_string(this->value);
+	std::stringstream ss;
+	ss << this->value;
+	return ss.str();
 }
 Tag* FloatTag::copy(void){
 	return new FloatTag(this->getName(), this->value);

@@ -15,7 +15,7 @@ struct ItemInHandRenderer: AppPlatform::Listener
 	float field_1C;
 	float field_20;
 	TileRenderer tileRenderer;
-	std::unordered_map<int32_t, std::unique_ptr<RenderCall>> field_90;
+	std::unordered_map<int, std::unique_ptr<RenderCall>> field_90;
 
 	ItemInHandRenderer(struct Minecraft*);
 	int32_t _getFrameID(struct Mob*, ItemInstance*);

@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 #include <network/mco/RestRequestJob.hpp>
 #include <sys/time.h>
+#include <errno.h>
 
 template<>
 void safeStopAndRemove<std::shared_ptr<RestRequestJob>>(std::shared_ptr<RestRequestJob>& a2) {

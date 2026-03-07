@@ -1,6 +1,7 @@
 #include <nbt/LongTag.hpp>
 #include <util/input/IDataInput.hpp>
 #include <util/output/IDataOutput.hpp>
+#include <sstream>
 
 LongTag::LongTag(const std::string& n, int64_t v) : Tag(n){
 	this->value = v;
@@ -15,8 +16,9 @@ int32_t LongTag::getId(void) const{
 	return 4;
 }
 std::string LongTag::toString(void){
-	//XXX might be not like in mcpe
-	return std::to_string(this->value);
+	std::stringstream ss;
+	ss << this->value;
+	return ss.str();
 }
 Tag* LongTag::copy(void){
 	return new LongTag(this->getName(), this->value);

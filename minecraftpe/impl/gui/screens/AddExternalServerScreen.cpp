@@ -7,6 +7,7 @@
 #include <rendering/Tesselator.hpp>
 #include <gui/NinePatchFactory.hpp>
 #include <util/IntRectangle.hpp>
+#include <stdlib.h>
 
 void AddExternalServerScreen::closeScreen() {
 	this->minecraft->setScreen(new PlayScreen(1));

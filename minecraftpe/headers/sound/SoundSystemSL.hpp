@@ -4,6 +4,7 @@
 #include <sound/SoundSystem.hpp>
 #include <math/Vec3.hpp>
 #include <list>
+#include <vector>
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
 struct Mutex;

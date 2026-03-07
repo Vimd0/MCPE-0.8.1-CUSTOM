@@ -1,6 +1,8 @@
 #include <nbt/ShortTag.hpp>
 #include <util/input/IDataInput.hpp>
 #include <util/output/IDataOutput.hpp>
+#include <sstream>
+
 ShortTag::ShortTag(const std::string& s, int16_t v) : Tag(s){
 	this->value = v;
 }
@@ -14,8 +16,9 @@ int32_t ShortTag::getId(void) const{
 	return 2;
 }
 std::string ShortTag::toString(void){
-	//XXX might be not like in mcpe
-	return std::to_string(this->value);
+	std::stringstream ss;
+	ss << this->value;
+	return ss.str();
 }
 Tag* ShortTag::copy(void){
 	ShortTag* t = new ShortTag(this->getName(), this->value);

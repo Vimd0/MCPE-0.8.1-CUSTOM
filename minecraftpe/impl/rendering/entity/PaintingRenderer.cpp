@@ -88,7 +88,7 @@ MeshBuffer* PaintingRenderer::_getMesh(const Motive* a2) {
 	if(p != this->motives.end()) {
 		return &p->second;
 	}
-	return &this->motives.insert({a2, this->_buildPainting(a2->w, a2->h, a2->uo, a2->vo)}).first->second;
+	return &(this->motives[a2] = this->_buildPainting(a2->w, a2->h, a2->uo, a2->vo)); //TODO check
 }
 
 PaintingRenderer::~PaintingRenderer() {

@@ -3,6 +3,7 @@
 #include <json/value.h>
 #include <unordered_map>
 #include <rendering/TextureUVCoordinateSet.hpp>
+#include <rendering/TextureAtlasTextureItem.hpp>
 #include <string>
 
 struct TextureAtlasTextureItem;

@@ -3,6 +3,7 @@
 #include <Options.hpp>
 #include <AppPlatform.hpp>
 #include <string.h>
+#include <stdlib.h>
 
 int32_t Textures::textureChanges = 0;
 

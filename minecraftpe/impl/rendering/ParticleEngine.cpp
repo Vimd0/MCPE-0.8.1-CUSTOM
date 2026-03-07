@@ -20,6 +20,7 @@
 #include <rendering/Textures.hpp>
 #include <rendering/Tesselator.hpp>
 #include <algorithm>
+#include <sstream>
 
 ParticleEngine::ParticleEngine(Level* a2, Textures* a3) {
 	this->level = a2;
@@ -55,11 +56,13 @@ void ParticleEngine::clear() {
 	}
 }
 std::string ParticleEngine::countParticles() { //TODO check return type
+	std::stringstream ss;
 	int32_t v5 = 0;
 	for(auto& p: this->string2ParticleVec) {
 		v5 += p.second.size();
 	}
-	return std::to_string(v5);
+	ss << v5;
+	return ss.str();
 }
 void ParticleEngine::crack(int32_t x, int32_t y, int32_t z, int32_t a5) {
 	int32_t v9; // r6

@@ -1,7 +1,7 @@
 #include <nbt/IntTag.hpp>
 #include <util/input/IDataInput.hpp>
 #include <util/output/IDataOutput.hpp>
-
+#include <sstream>
 IntTag::IntTag(const std::string& n, int32_t v) : Tag(n){
 	this->value = v;
 }
@@ -15,8 +15,9 @@ int32_t IntTag::getId(void) const{
 	return 3;
 }
 std::string IntTag::toString(void){
-	//XXX might be not like in mcpe
-	return std::to_string(this->value);
+	std::stringstream ss;
+	ss << this->value;
+	return ss.str();
 }
 Tag* IntTag::copy(void){
 	return new IntTag(this->getName(), this->value);

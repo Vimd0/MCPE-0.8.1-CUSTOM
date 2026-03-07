@@ -5,6 +5,7 @@
 #include <level/Level.hpp>
 #include <nbt/CompoundTag.hpp>
 #include <nbt/ByteTag.hpp>
+#include <sstream>
 
 ItemInstance::ItemInstance(const Item* a2) {
 	this->init(a2->itemID, 1, 0);
@@ -298,8 +299,16 @@ void ItemInstance::setNull() {
 void ItemInstance::snap(Player*) {
 }
 std::string ItemInstance::toString() {
-	//TODO check
-	return "" + std::to_string(this->count) + " x " + this->getDescriptionId() + "(" + std::to_string(this->itemClass->itemID) + ")" + "@" + std::to_string(this->metadata);
+	std::stringstream str;
+	str << this->count;
+	str << " x ";
+	str << this->getDescriptionId();
+	str << "(";
+	str << this->itemClass->itemID;
+	str << ")";
+	str << "@";
+	str << this->metadata;
+	return str.str();
 }
 ItemInstance* ItemInstance::use(Level* a2, Player* a3) {
 	return this->itemClass->use(this, a2, a3);

@@ -35,6 +35,7 @@ int main(){
 #include <utils.h>
 #include <cpputils.hpp>
 #include <unigl.h>
+#include <string.h>
 
 bool contextWasLost;
 ENGINE* pEngine;
@@ -47,7 +48,7 @@ void android_main(struct android_app* state) {
 	pEngine = &engine;
 
 	app_dummy();
-	memset(&engine, 0, sizeof(engine));
+	memset((void*) &engine, 0, sizeof(engine));
 	state->userData = &engine;
 	state->destroyRequested = 0;
 	state->onAppCmd = engine_handle_cmd;

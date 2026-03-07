@@ -1,6 +1,7 @@
 #include <nbt/DoubleTag.hpp>
 #include <util/input/IDataInput.hpp>
 #include <util/output/IDataOutput.hpp>
+#include <sstream>
 
 DoubleTag::DoubleTag(const std::string& n, double v) : Tag(n){
 	this->value = v;
@@ -15,8 +16,9 @@ int32_t DoubleTag::getId(void) const{
 	return 6;
 }
 std::string DoubleTag::toString(void){
-	//XXX might be not like in mcpe
-	return std::to_string(this->value);
+	std::stringstream ss;
+	ss << this->value;
+	return ss.str();
 }
 Tag* DoubleTag::copy(void){
 	return new DoubleTag(this->getName(), this->value);

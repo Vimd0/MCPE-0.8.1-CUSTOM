@@ -29,6 +29,7 @@
 #include <rendering/frustum/FrustumCuller.hpp>
 #include <util/DirtyChunkSorter.hpp>
 #include <perf/Stopwatch.hpp>
+#include <sstream>
 
 LevelRenderer::LevelRenderer(Minecraft* minecraft, std::shared_ptr<TextureAtlas> a3)
 	: field_164(Color4::BLACK) {
@@ -402,7 +403,9 @@ void LevelRenderer::deleteChunks() {
 	}
 }
 std::string LevelRenderer::gatherStats1() {
-	return "C: " + std::to_string(this->totalRendered) + "/" + std::to_string(this->totalLoaded) + ". F: " + std::to_string(this->frustrumClippedCnt) + ", O: " + std::to_string(this->occludedCnt) + ", E: " + std::to_string(this->field_38) + "\n";
+	std::stringstream ss;
+	ss << "C: " << this->totalRendered << "/" << this->totalLoaded << ". F: " << this->frustrumClippedCnt << ", O: " << this->occludedCnt << ", E: " << this->field_38 << "\n";
+	return ss.str();
 }
 void LevelRenderer::generateSky() {
 	int32_t v2; // r4
