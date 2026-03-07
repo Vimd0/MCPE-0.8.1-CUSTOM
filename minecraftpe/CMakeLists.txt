@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 project(minecraftpe08decomp LANGUAGES CXX)
 #evil jsoncpp overring this thing </3
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/build)
@@ -18,7 +18,6 @@ else()
 endif()
 
 find_package(ZLIB REQUIRED)
-
 add_compile_options(-fpermissive -Wno-out-of-line-declaration -Wno-write-strings -Werror=infinite-recursion -Werror=return-type)
 if(ANDROID)
 	add_compile_options(-DUSEGLES -DIMTOOLAZYTOFIX16ERRS -DPCTWEAKS)
@@ -31,7 +30,6 @@ endif()
 if(DEBUG)
 	add_compile_options(-g -DDEBUG)
 endif()
-
 file(GLOB_RECURSE IMPLCPP *.cpp)
 file(GLOB_RECURSE IMPLC *.c)
 file(GLOB_RECURSE HEADC *.h)
@@ -40,11 +38,18 @@ file(GLOB_RECURSE HEADCPP *.hpp)
 if(ANDROID)
 	add_library(native_app_glue STATIC ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
 	add_library(minecraftpe SHARED ${IMPLCPP} ${IMPLC} ${HEADC} ${HEADCPP})
+	target_precompile_headers(minecraftpe PRIVATE
+		"$<$<COMPILE_LANGUAGE:CXX>:<vector$<ANGLE-R>>"
+		"$<$<COMPILE_LANGUAGE:CXX>:<string$<ANGLE-R>>"
+	)
 	target_include_directories(minecraftpe PUBLIC "headers/" ${ANDROID_NDK}/sources/android/native_app_glue/)
 	target_link_libraries(minecraftpe ZLIB::ZLIB EGL GLESv1_CM OpenSLES RakNetStatic native_app_glue jsoncpp_lib utf8proc log native_app_glue android)
 else()
 	add_executable(minecraftpe08decomp ${IMPLCPP} ${IMPLC} ${HEADC} ${HEADCPP})
-
+	target_precompile_headers(minecraftpe08decomp PRIVATE
+		"$<$<COMPILE_LANGUAGE:CXX>:<vector$<ANGLE-R>>"
+		"$<$<COMPILE_LANGUAGE:CXX>:<string$<ANGLE-R>>"
+	)
 	target_include_directories(minecraftpe08decomp PUBLIC "headers/")
 	target_link_libraries(minecraftpe08decomp)
 	if(WIN32)

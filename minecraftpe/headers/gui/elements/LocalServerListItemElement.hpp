@@ -1,6 +1,5 @@
 #pragma once
 #include <gui/GuiElement.hpp>
-#include <RakString.h>
 
 struct PlayScreen;
 struct Minecraft;
