@@ -283,7 +283,7 @@ LABEL_16:;
 }
 void FurnaceScreen::updateResult(const ItemInstance* a2) {
 	ItemInstance* v4 = this->tileEntity->getItem(2);
-	if(v4->isNull()) {
+	if(!v4->isNull()) {
 		int32_t id = v4->getId();
 		if(id == this->resultIdMaybe) return;
 		this->field_68 = I18n::getDescriptionString(*v4);
