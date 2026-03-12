@@ -5,8 +5,7 @@ An attempt to decompile MCPE 0.8.1 and to make it possible to run it on differen
 
 ## Cloning the repo and extracting sounds
 * Clone the repo with `--recursive` flag(or use `git submodule init` and `git submodule update` after cloning if you forgot to add it)
-* Extract armeabi-v7a version of libminecraftpe.so from the apk file and put it into the same folder as `get_sound_data.py`(currently located in `./minecraftpe/`)
-* Run `python get_sound_data.py` -> should generate `pcm_data.c`
+* Run `python tools/get_sound_data.py <path/to/libminecraftpe.so>` - it should generate `pcm_data.c`
 * Move `pcm_data.c` to `./minecraftpe/impl/`
 
 ### Linux
