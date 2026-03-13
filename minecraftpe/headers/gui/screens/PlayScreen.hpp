@@ -21,11 +21,11 @@ struct PlayScreen: Screen
 	Touch::TButton* backButton;
 	Touch::TButton* newButton;
 	Touch::TButton* externalButton;
-	NinePatchLayer* field_70;
+	NinePatchLayer* frame;
 	NinePatchLayer* field_74;
 	NinePatchLayer* field_78;
 	Spinner* spinner;
-	CategoryButton* field_80;
+	CategoryButton* editButton;
 	Button* field_84;
 	std::vector<PingedCompatibleServer> field_88;
 	std::shared_ptr<RestRequestJob> field_94;

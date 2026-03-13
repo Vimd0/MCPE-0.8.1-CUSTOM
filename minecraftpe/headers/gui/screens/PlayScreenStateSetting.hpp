@@ -6,8 +6,8 @@
 
 struct PlayScreenStateSetting
 {
-	bool_t field_0, field_1, field_2, field_3;
-	bool_t field_4, field_5;
+	bool_t showEditButton, field_1, field_2, field_3;
+	bool_t showNewButton, showExternalButton;
 	int8_t field_6, field_7;
 	PlayScreenPanel panel;
 	std::string field_C;

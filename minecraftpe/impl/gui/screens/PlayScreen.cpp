@@ -15,6 +15,7 @@
 #include <gui/elements/LocalServerListItemElement.hpp>
 #include <level/storage/LevelStorageSource.hpp>
 #include <cpputils.hpp>
+#include <gui/elements/Label.hpp>
 
 PlayScreen::PlayScreen(bool_t a2) {
 	PlayScreenState v4 = a2 ? PlayScreenState::ELEVEN : PlayScreenState::ZERO;
@@ -27,11 +28,11 @@ PlayScreen::PlayScreen(bool_t a2) {
 	this->field_5C = "";
 	this->newButton = 0;
 	this->externalButton = 0;
-	this->field_70 = 0;
+	this->frame = 0;
 	this->field_74 = 0;
 	this->field_78 = 0;
 	this->spinner = 0;
-	this->field_80 = 0;
+	this->editButton = 0;
 	this->field_84 = 0;
 
 	this->field_B4 = 0;
@@ -105,9 +106,12 @@ std::shared_ptr<GuiElement> PlayScreen::buildMCOServerList() {
 	return std::shared_ptr<GuiElement>();
 }
 std::shared_ptr<GuiElement> PlayScreen::buildMessageScreen() {
-	//TODO
-	printf("PlayScreen::buildMessageScreen - not implemented\n");
-	return std::shared_ptr<GuiElement>();
+	//TODO check
+	std::shared_ptr<PackedScrollContainer> v4(new PackedScrollContainer(0, 0, 0));
+	PlayScreenStateSetting* stateData = this->getStateData(this->field_114);
+	v4->addChild(std::shared_ptr<Label>(new Label(stateData->field_C, this->minecraft, -1, 5, 2, this->field_214->width, 1)));
+	v4->setupPositions();
+	return v4;
 }
 void PlayScreen::closeScreen() {
 	this->minecraft->cancelLocateMultiplayer();
@@ -120,7 +124,7 @@ PlayScreenStateSetting* PlayScreen::getStateData(PlayScreenState a2) {
 	return &this->field_11C[a2];
 }
 bool_t PlayScreen::isEditMode() {
-	return this->field_84 == this->field_80;
+	return this->field_84 == this->editButton;
 }
 bool_t PlayScreen::isLocalPlayScreen() {
 	return 0;
@@ -134,7 +138,7 @@ void PlayScreen::resetBaseButtons() {
 	this->buttons.emplace_back(this->header);
 	this->buttons.emplace_back(this->backButton);
 	this->buttons.emplace_back(this->newButton);
-	this->buttons.emplace_back(this->field_80);
+	this->buttons.emplace_back(this->editButton);
 	this->buttons.emplace_back(this->externalButton);
 }
 void PlayScreen::resetCurrentlyWaitingMCOCancelButton(void) {
@@ -200,11 +204,11 @@ void PlayScreen::signOut() {
 	printf("PlayScreen::signOut - not implemented\n");
 }
 void PlayScreen::updateHeaderItems(PlayScreenState a2) {
-	this->newButton->setActiveAndVisibility(this->getStateData(a2)->field_4);
-	this->field_80->setActiveAndVisibility(this->getStateData(a2)->field_0);
-	if(this->getStateData(a2)->field_1) this->field_84 = this->field_80;
+	this->newButton->setActiveAndVisibility(this->getStateData(a2)->showNewButton);
+	this->editButton->setActiveAndVisibility(this->getStateData(a2)->showEditButton);
+	if(this->getStateData(a2)->field_1) this->field_84 = this->editButton;
 	else this->field_84 = 0;
-	this->externalButton->setActiveAndVisibility(this->getStateData(a2)->field_5);
+	this->externalButton->setActiveAndVisibility(this->getStateData(a2)->showExternalButton);
 }
 
 void PlayScreen::updateMCOServerList() {
@@ -228,13 +232,13 @@ PlayScreen::~PlayScreen() {
 	safeRemove<Touch::TButton>(this->backButton);
 	safeRemove<Touch::TButton>(this->newButton);
 	safeRemove<Touch::TButton>(this->externalButton);
-	if(this->field_80) {
-		delete this->field_80;
-		this->field_80 = 0;
+	if(this->editButton) {
+		delete this->editButton;
+		this->editButton = 0;
 	}
 	safeRemove<NinePatchLayer>(this->field_74);
 	safeRemove<NinePatchLayer>(this->field_78);
-	safeRemove<NinePatchLayer>(this->field_70);
+	safeRemove<NinePatchLayer>(this->frame);
 	if(this->spinner) {
 		delete this->spinner;
 		this->spinner = 0;
@@ -247,7 +251,7 @@ PlayScreen::~PlayScreen() {
 
 void PlayScreen::render(int32_t mx, int32_t my, float pt) {
 	this->renderMenuBackground(pt);
-	this->field_70->draw(Tesselator::instance, this->field_214.get()->posX - 3, this->field_214.get()->posY - 3);
+	this->frame->draw(Tesselator::instance, this->field_214.get()->posX - 3, this->field_214.get()->posY - 3);
 	Screen::render(mx, my, pt);
 	this->spinner->render(this->minecraft, mx, my);
 }
@@ -269,14 +273,14 @@ void PlayScreen::init() {
 	this->newButton->width = 38;
 	NinePatchFactory a1(this->minecraft->texturesPtr, "gui/spritesheet.png");
 	NinePatchLayer* lay = a1.createSymmetrical({34, 43, 14, 14}, 3, 3, 32, 32);
-	this->field_70 = lay;
+	this->frame = lay;
 	NinePatchLayer* lay2 = a1.createSymmetrical({8, 32, 8, 8}, 2, 2, this->backButton->width, this->backButton->height);
 	this->field_74 = lay2;
 	this->field_78 = a1.createSymmetrical({0, 32, 8, 8}, 2, 2, this->backButton->width, this->backButton->height);
-	this->field_80 = new CategoryButton("Edit", 3, this->field_74, this->field_78, &this->field_84);
-	this->field_80->width = this->backButton->width;
-	this->field_80->height = this->backButton->height;
-	this->field_80->setYOffset(this->field_80->height / 2 - 4);
+	this->editButton = new CategoryButton("Edit", 3, this->field_74, this->field_78, &this->field_84);
+	this->editButton->width = this->backButton->width;
+	this->editButton->height = this->backButton->height;
+	this->editButton->setYOffset(this->editButton->height / 2 - 4);
 	this->spinner = new Spinner();
 	this->spinner->setActiveAndVisibility(0);
 	this->minecraft->locateMultiplayer();
@@ -307,29 +311,29 @@ void PlayScreen::setupPositions() {
 	this->backButton->posX = 4;
 	this->backButton->posY = 4;
 
-	this->field_80->posX = this->width - this->field_80->width - 4;
-	this->field_80->posY = 4;
+	this->editButton->posX = this->width - this->editButton->width - 4;
+	this->editButton->posY = 4;
 
 	this->header->posX = 0;
 	this->header->posY = 0;
 	this->header->width = this->width;
 	this->header->height = this->backButton->height + 8;
 
-	this->newButton->posX = this->width - this->field_80->width - 8 - this->newButton->width;
+	this->newButton->posX = this->width - this->editButton->width - 8 - this->newButton->width;
 	this->newButton->posY = 4;
 
-	this->spinner->posX = this->width - 4 - this->spinner->width - this->field_80->width;
+	this->spinner->posX = this->width - 4 - this->spinner->width - this->editButton->width;
 	this->spinner->posY = 9;
 
-	this->externalButton->posX = this->field_80->posX - this->externalButton->width - 4;
-	this->externalButton->posY = this->field_80->posY;
+	this->externalButton->posX = this->editButton->posX - this->externalButton->width - 4;
+	this->externalButton->posY = this->editButton->posY;
 
 	this->field_214.get()->posX = 10;
 	this->field_214.get()->posY = this->header->height + 6;
 	this->field_214.get()->width = this->width - 20;
 	this->field_214.get()->height = this->height - (this->header->height + 6) - 6;
 	this->field_214.get()->setupPositions();
-	this->field_70->setSize(this->field_214.get()->width + 6, this->field_214.get()->height + 6);
+	this->frame->setSize(this->field_214.get()->width + 6, this->field_214.get()->height + 6);
 }
 bool_t PlayScreen::handleBackEvent(bool_t a2) {
 	if(!a2) this->closeScreen();
@@ -403,7 +407,7 @@ void PlayScreen::buttonClicked(Button* a2) {
 		} else {
 			this->minecraft->setScreen(new CreateWorldScreen(WST_MCOGAME_NEW, MCOServerListItem()));
 		}
-	} else if(a2 == this->field_80) {
+	} else if(a2 == this->editButton) {
 		if(a2 == this->field_84) a2 = 0;
 		this->field_84 = a2;
 		switch(this->field_114) {

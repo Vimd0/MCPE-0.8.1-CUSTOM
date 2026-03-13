@@ -12,7 +12,6 @@
 #include <input/MouseHandler.hpp>
 #include <math/HitResult.hpp>
 #include <Timer.hpp>
-#include <unordered_map>
 
 struct CThread;
 struct User;

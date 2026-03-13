@@ -388,7 +388,7 @@ Touch::StartMenuScreen::~StartMenuScreen(){
 void Touch::StartMenuScreen::render(int32_t a2, int32_t a3, float a4){
 	bool_t mco = this->minecraft->mojangConnector->isServiceEnabled();
 	this->playOnRealmsButton.setActiveAndVisibility(mco);
-	this->setupPositions();
+	this->setupPlayButtons(mco);
 	this->renderMenuBackground(a4);
 	int32_t v10 = this->minecraft->texturesPtr->loadTexture("gui/title.png", 1, 0);
 	if(v10){
