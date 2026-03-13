@@ -19,8 +19,11 @@ You must also have original 0.8.1 apk file to extract sounds(won't compile witho
   ```
 * the output should be `minecraftpe/build/minecraftpe08decomp`
 
+### Android
+Use https://github.com/oldminecraftcommunity/MCPE-0.8.1-Android
+
 ### Other OSes
-Currently the project should also support windows and android(currently has some bugs).
+Currently the project should also support windows.
 
 Windows version does not require OpenAL(it uses DirectSound instead). It should be possible to cross compile this project for windows by using something like
 ```
@@ -29,10 +32,6 @@ cmake .. -DJSONCPP_WITH_TESTS=OFF -DJSONCPP_WITH_POST_BUILD_UNITTEST=OFF -DCMAKE
 (def should be simplifed later)
 
 **Building on windows was not tested!**
-
-
-Android version is still in development and doesn't really have any building instructions. You have to obtain sources of 0.8.1 apk file by using some decompiler(like jadx), import them into android studio project ~~(or epic eclipse adt <3)~~ and add this project into the created project. You might have to modify raknet or some other library for it to compile successfully.
-
 
 ### Running
 * extract `assets` from real MCPE 0.8.1 apk into the folder you're running the executable from
